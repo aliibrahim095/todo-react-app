@@ -44,18 +44,18 @@ function AddTodo() {
         <>
         <ToastContainer/>
         {loading && <CircularProgress/>}
-        {errors&&<p>Error</p>}
+        {/* {errors&&<p>Error</p>} */}
           <form onSubmit={onSubmit} noValidate>
             <Grid container>
-              <Grid item xs={12}>
+              <Grid item xs={11}>
                 <Grid
                   container
-                  spacing={10}
+                  spacing={1}
                   alignItems={grid_items.alignItems}
                   direction={grid_items.direction}
                   justifyContent={grid_items.justify}
                 >
-                  <Grid item>
+                  <Grid item >
                     <TextField
                       id="title"
                       label="Title"

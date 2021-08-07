@@ -10,6 +10,7 @@ import { FETCH_TODOS_QUERY } from "../../util/graphql";
 
 import RemoveTodo from './RemoveTodo'
 import { IconButton, ListItemSecondaryAction } from "@material-ui/core";
+import UpdateTodo from "./UpdateTodo";
 function ListTodos(){
     const [todos, setTodos] = useState([]);
     const {data, loading, error } = useQuery(FETCH_TODOS_QUERY);
@@ -32,6 +33,7 @@ function ListTodos(){
               {todos.map(todo => (
                 <BoxLayout key={todo.id}>
                   <ListItem dense>
+                  <UpdateTodo todo={todo} />
                     <ListItemText primary={todo.title} />
                     <ListItemSecondaryAction>
                       <IconButton aria-label="Remove Todo">

@@ -29,3 +29,11 @@ mutation deleteTodo($id: ID!) {
   }
 }
 `
+export const UPDATE_TODO = gql`
+mutation updateTodo($id: ID!,$state:Boolean!) {
+  updateTodo(where:{id: $id},data:{state: $state}){
+    title
+    state
+  }
+}
+`

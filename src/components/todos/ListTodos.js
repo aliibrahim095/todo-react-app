@@ -28,8 +28,8 @@ function ListTodos(){
 
             <List>
               {todos.map(todo => (
-                <BoxLayout>
-                  <ListItem key={todo.id} dense>
+                <BoxLayout key={todo.id}>
+                  <ListItem dense>
                     <ListItemText primary={todo.title} />
                   </ListItem>
                 </BoxLayout>

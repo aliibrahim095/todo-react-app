@@ -8,6 +8,8 @@ import BoxLayout from '../../layout/BoxLayout'
 
 import { FETCH_TODOS_QUERY } from "../../util/graphql";
 
+import RemoveTodo from './RemoveTodo'
+import { IconButton, ListItemSecondaryAction } from "@material-ui/core";
 function ListTodos(){
     const [todos, setTodos] = useState([]);
     const {data, loading, error } = useQuery(FETCH_TODOS_QUERY);
@@ -31,6 +33,11 @@ function ListTodos(){
                 <BoxLayout key={todo.id}>
                   <ListItem dense>
                     <ListItemText primary={todo.title} />
+                    <ListItemSecondaryAction>
+                      <IconButton aria-label="Remove Todo">
+                         <RemoveTodo todo={todo} />
+                      </IconButton>
+                    </ListItemSecondaryAction>
                   </ListItem>
                 </BoxLayout>
               ))}

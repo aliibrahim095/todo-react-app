@@ -21,3 +21,11 @@ export const ADD_TODO = gql`
     }
   }
 `;
+
+export const REMOVE_TODO = gql`
+mutation deleteTodo($id: ID!) {
+  deleteTodo(where:{id: $id}){
+    title
+  }
+}
+`

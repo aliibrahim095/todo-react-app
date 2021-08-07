@@ -9,8 +9,10 @@ import { useMutation } from "@apollo/react-hooks";
 import { ADD_TODO } from "../../util/graphql";
 import { useForm } from "../../util/hooks";
 import { ToastContainer } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
 function AddTodo() {
+  const history=useHistory();
     const [errors, setErrors] = useState({});  
     const initialState = {
       title: "",
@@ -26,7 +28,7 @@ function AddTodo() {
     const [createTodo, { loading }] = useMutation(ADD_TODO, {
       update() {
         toastMsg("✅ Todo Added Successfully");
-        
+        setTimeout(()=>{history.push('/')},1500)
       },
       onError(err) {
         setErrors(err.graphQLErrors[0]?.extensions.errors);

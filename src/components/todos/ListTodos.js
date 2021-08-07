@@ -4,6 +4,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useQuery } from "@apollo/react-hooks";
+import BoxLayout from '../../layout/BoxLayout'
 
 import { FETCH_TODOS_QUERY } from "../../util/graphql";
 
@@ -18,19 +19,22 @@ function ListTodos(){
         if (error) {
           return "error";
         }
-      }, [data]);
+      },[data,error]);
           
         return (
             <>
             {loading && <CircularProgress/>}
         {error && <p>Error :(</p>}
-          <List>
-            {todos.map(todo => (
-              <ListItem key={todo.id} dense>
-                <ListItemText primary={todo.title} />
-              </ListItem>
-            ))}
-          </List>
+
+            <List>
+              {todos.map(todo => (
+                <BoxLayout>
+                  <ListItem key={todo.id} dense>
+                    <ListItemText primary={todo.title} />
+                  </ListItem>
+                </BoxLayout>
+              ))}
+            </List>
           </>
         );
 }

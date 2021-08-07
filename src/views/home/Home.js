@@ -1,9 +1,9 @@
 import React from 'react'
-
+import ListTodos from '../../components/todos/ListTodos'
 function Home() {
     return (
         <div>
-            Hello Home
+            <ListTodos/>
         </div>
     )
 }

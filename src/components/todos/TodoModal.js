@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth:"500px",
     minWidth:"500px",
     whiteSpace:"pre-line",
-    minHeight:"250px"
+    minHeight:"200px"
   },
 }));
 

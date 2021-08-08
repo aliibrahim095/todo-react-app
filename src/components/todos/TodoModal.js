@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     maxWidth:"500px",
     minWidth:"500px",
-    whiteSpace:"pre-line"
+    whiteSpace:"pre-line",
+    minHeight:"250px"
   },
 }));
 

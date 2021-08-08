@@ -1,4 +1,4 @@
-import React,{useState } from "react";
+import React,{useState,useEffect } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -21,7 +21,11 @@ function ListTodos({todos,error,loading}){
     const [openUpdate, setOpenUpdate] = React.useState(false);
     const [currentTodo, setCurrentTodo] = useState({});
     const [currentTodoToUpdate, setCurrentTodoToUpdate] = useState({});
+    const[todosToRender,setTodosToRender]=useState([]);
   
+    useEffect(() => {
+      setTodosToRender(todos)
+    }, [todos])
   const handleOpen = (todo) => {
     setCurrentTodo(todo);
     setOpen(true);
@@ -48,7 +52,7 @@ function ListTodos({todos,error,loading}){
             {error && <p>Error :(</p>}
 
             <List>
-              {todos.map(todo => (
+              {todosToRender.map(todo => (
                 <BoxLayout key={todo.id}>
                   <ListItem dense>
                   <UpdateTodo todo={todo} />

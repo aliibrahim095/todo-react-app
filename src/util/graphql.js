@@ -24,7 +24,7 @@ export const FETCH_COMPLETED_TODOS = gql`
 }
 `;
 export const FETCH_INPROGRESS_TODOS = gql`
-{
+query todos {
   todos(where: {state: false}){
     id
     title

@@ -28,13 +28,13 @@ export default function Navbar() {
       e.preventDefault();
       history.push('/');
   }
-  const goActive=(e)=>{
+  const goInProgress=(e)=>{
       e.preventDefault();
-      history.push('/');
+      history.push('/inprogress');
   }
   const goCompleted=(e)=>{
       e.preventDefault();
-      history.push('/');
+      history.push('/completed');
   }
 
   return (
@@ -48,7 +48,7 @@ export default function Navbar() {
             TODO
           </Typography>
           <Button onClick={goHome} color="inherit">Home</Button>
-          <Button onClick={goActive} color="inherit">Active</Button>
+          <Button onClick={goInProgress} color="inherit">In Progress</Button>
           <Button onClick={goCompleted} color="inherit">Completed</Button>
         </Toolbar>
       </AppBar>

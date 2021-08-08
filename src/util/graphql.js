@@ -37,3 +37,14 @@ mutation updateTodo($id: ID!,$state:Boolean!) {
   }
 }
 `
+export const UPDATE_TODO_DETAILS = gql`
+mutation updateTodo($id: ID!,$title:String!,$description:String!, $dueDate:Date! ,$state:Boolean!) {
+  updateTodo(where:{id: $id},data:{title:$title, description:$description, dueDate:$dueDate ,state: $state}){
+    id
+    title
+    description
+    dueDate
+    state
+  }
+}
+`

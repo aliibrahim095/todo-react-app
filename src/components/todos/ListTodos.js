@@ -11,6 +11,7 @@ import { FETCH_TODOS_QUERY } from "../../util/graphql";
 import RemoveTodo from './RemoveTodo'
 import { IconButton, ListItemSecondaryAction } from "@material-ui/core";
 import UpdateTodo from "./UpdateTodo";
+import { ToastContainer } from "react-toastify";
 function ListTodos(){
     const [todos, setTodos] = useState([]);
     const {data, loading, error } = useQuery(FETCH_TODOS_QUERY);
@@ -22,22 +23,23 @@ function ListTodos(){
         if (error) {
           return "error";
         }
-      },[data,error]);
+      },[data,todos,error]);
           
         return (
             <>
+            <ToastContainer/>
             {loading && <CircularProgress/>}
-        {error && <p>Error :(</p>}
+            {error && <p>Error :(</p>}
 
             <List>
               {todos.map(todo => (
                 <BoxLayout key={todo.id}>
                   <ListItem dense>
-                  <UpdateTodo todo={todo} />
+                  <UpdateTodo todos={todos} setTodos={setTodos} todo={todo} />
                     <ListItemText primary={todo.title} />
                     <ListItemSecondaryAction>
                       <IconButton aria-label="Remove Todo">
-                         <RemoveTodo todo={todo} />
+                         <RemoveTodo todos={todos} todo={todo} />
                       </IconButton>
                     </ListItemSecondaryAction>
                   </ListItem>

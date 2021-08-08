@@ -14,7 +14,7 @@ export const FETCH_TODOS_QUERY = gql`
 
 export const ADD_TODO = gql`
   mutation createTodo($title: String!, $description: String!, $dueDate:Date!) {
-    createTodo(data:{title: $title, description: $description, dueDate: $dueDate }) {
+    createTodo(data:{title: $title, description: $description, dueDate: $dueDate, state:false }) {
       title
       description
       dueDate

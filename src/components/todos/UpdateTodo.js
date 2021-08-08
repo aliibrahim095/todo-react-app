@@ -1,22 +1,26 @@
-import React,{useState} from "react";
+import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 import Checkbox from "@material-ui/core/Checkbox";
 import { UPDATE_TODO } from "../../util/graphql";
-// import { GET_TODOS } from "../../graphql/queries";
+
+import { FETCH_TODOS_QUERY } from "../../util/graphql";
+import { useForm } from "../../util/hooks";
 
 function UpdateTodo(props){
-    const [errors, setErrors] = useState({});  
-    const [isActive,setIsActive]=useState(false)
-    const [updateTodo, { loading }] = useMutation(UPDATE_TODO, {
-        update() {
-        },
-        onError(err) {
-          setErrors(err.graphQLErrors[0]?.extensions.errors);
-        },
+    const {toastMsg} = useForm();
+    const [updateTodo] = useMutation(UPDATE_TODO, {
+        update(){
+            setTimeout(()=>{
+              toastMsg("✅ Status Updated Successfully");
+          },1200)
+          },
         variables:{
             id:props.todo.id,
             state:!props.todo.state
-        }
+        },
+        refetchQueries: [
+            FETCH_TODOS_QUERY,
+          ],
       });
   return (
         <Checkbox

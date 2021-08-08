@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -7,13 +7,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useMutation } from "@apollo/react-hooks";
 
 import { ADD_TODO } from "../../util/graphql";
+import { FETCH_TODOS_QUERY } from "../../util/graphql";
+
 import { useForm } from "../../util/hooks";
 import { ToastContainer } from "react-toastify";
-import { useHistory } from "react-router-dom";
 
 function AddTodo() {
-  const history=useHistory();
-    const [errors, setErrors] = useState({});  
     const initialState = {
       title: "",
       description: "",
@@ -27,13 +26,14 @@ function AddTodo() {
   
     const [createTodo, { loading }] = useMutation(ADD_TODO, {
       update() {
-        toastMsg("✅ Todo Added Successfully");
-        setTimeout(()=>{history.push('/')},1500)
-      },
-      onError(err) {
-        setErrors(err.graphQLErrors[0]?.extensions.errors);
+        setTimeout(()=>{
+          toastMsg("✅ Todo Added Successfully");
+      },1200)
       },
       variables: values,
+      refetchQueries: [
+        FETCH_TODOS_QUERY,
+      ],
     });
   
     function addTodo() {
@@ -43,8 +43,6 @@ function AddTodo() {
     return (
         <>
         <ToastContainer/>
-        {loading && <CircularProgress/>}
-        {/* {errors&&<p>Error</p>} */}
           <form onSubmit={onSubmit} noValidate>
             <Grid container>
               <Grid item xs={11}>
@@ -63,6 +61,7 @@ function AddTodo() {
                       value={values.title}
                       onChange={onChange}
                       name="title"
+                      required
                     />
                   </Grid>
                   <Grid item>
@@ -76,6 +75,7 @@ function AddTodo() {
                       value={values.description}
                       onChange={onChange}
                       name="description"
+                      required
                     />
                   </Grid>
                   <Grid item>
@@ -90,6 +90,7 @@ function AddTodo() {
                       InputLabelProps={{
                         shrink: true,
                       }}
+                      required
                     />
                   </Grid>
                   <Grid item>
@@ -106,6 +107,8 @@ function AddTodo() {
               </Grid>
             </Grid>
           </form>
+        {loading && <CircularProgress/>}
+
       </>
     );
 }

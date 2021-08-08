@@ -5,7 +5,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { Button, Checkbox, Grid, TextField } from '@material-ui/core';
 import { useForm } from '../../util/hooks';
-import { FETCH_TODOS_QUERY, UPDATE_TODO_DETAILS } from "../../util/graphql";
+import { UPDATE_TODO_DETAILS } from "../../util/graphql";
 import { useMutation } from '@apollo/react-hooks';
 
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UpdateTodoDetails({todo,handleClose,open}) {
+export default function UpdateTodoDetails({todo,handleClose,open,FETCH_QUERY}) {
   const classes = useStyles();
   const [initialState,setInitialState]=useState({
         title:'',
@@ -61,7 +61,7 @@ export default function UpdateTodoDetails({todo,handleClose,open}) {
         state:initialState.state==="false"?true:false
     },
     refetchQueries: [
-        FETCH_TODOS_QUERY,
+      FETCH_QUERY,
       ],
   });
 

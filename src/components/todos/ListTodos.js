@@ -16,16 +16,12 @@ import UpdateTodo from "./UpdateTodo";
 import { ToastContainer } from "react-toastify";
 import UpdateTodoDetails from "./UpdateTodoDetails";
 
-function ListTodos({todos,error,loading}){
+function ListTodos({todos,error,loading,setCounter,FETCH_QUERY}){
     const [open, setOpen] = React.useState(false);
     const [openUpdate, setOpenUpdate] = React.useState(false);
     const [currentTodo, setCurrentTodo] = useState({});
     const [currentTodoToUpdate, setCurrentTodoToUpdate] = useState({});
-    const[todosToRender,setTodosToRender]=useState([]);
   
-    useEffect(() => {
-      setTodosToRender(todos)
-    }, [todos])
   const handleOpen = (todo) => {
     setCurrentTodo(todo);
     setOpen(true);
@@ -52,10 +48,10 @@ function ListTodos({todos,error,loading}){
             {error && <p>Error :(</p>}
 
             <List>
-              {todosToRender.map(todo => (
+              {todos.map(todo => (
                 <BoxLayout key={todo.id}>
                   <ListItem dense>
-                  <UpdateTodo todo={todo} />
+                  <UpdateTodo todo={todo} FETCH_QUERY={FETCH_QUERY}/>
                     <ListItemText primary={todo.title} />
                     <ListItemSecondaryAction>
                     <IconButton onClick={()=>{handleOpen(todo)}}>
@@ -65,7 +61,7 @@ function ListTodos({todos,error,loading}){
                         <EditIcon></EditIcon>
                     </IconButton>
                     <IconButton aria-label="Remove Todo">
-                        <RemoveTodo todo={todo} />
+                        <RemoveTodo todo={todo} FETCH_QUERY={FETCH_QUERY} />
                     </IconButton>
                     </ListItemSecondaryAction>
                   </ListItem>
@@ -73,7 +69,7 @@ function ListTodos({todos,error,loading}){
               ))}
             </List>
             <TransitionsModal todo={currentTodo} open={open} handleClose={handleClose}/>
-            <UpdateTodoDetails todo={currentTodoToUpdate} open={openUpdate} handleClose={handleCloseUpdate}/>
+            <UpdateTodoDetails todo={currentTodoToUpdate} open={openUpdate} handleClose={handleCloseUpdate} FETCH_QUERY={FETCH_QUERY}/>
           </>
         );
 }

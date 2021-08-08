@@ -13,10 +13,10 @@ function Completed() {
         if (error) {
           return "error";
         }
-      },[todos,todos,error]);
+      },[data]);
     return (
         <div>
-            <ListTodos todos={todos} error={error} loading={loading}/>
+            <ListTodos todos={todos} error={error} loading={loading} FETCH_QUERY={FETCH_COMPLETED_TODOS}/>
         </div>
     )
 }

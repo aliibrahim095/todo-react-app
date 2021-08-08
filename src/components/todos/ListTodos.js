@@ -23,6 +23,7 @@ function ListTodos(){
     const [openUpdate, setOpenUpdate] = React.useState(false);
     const [todos, setTodos] = useState([]);
     const [currentTodo, setCurrentTodo] = useState({});
+    const [currentTodoToUpdate, setCurrentTodoToUpdate] = useState({});
 
     // const[isUpdateClicked,setIsUpdateClicked]=useState(false);
 
@@ -53,7 +54,7 @@ function ListTodos(){
 
 
   const handleUpdateOpen=(todo)=>{
-    setCurrentTodo(todo);
+    setCurrentTodoToUpdate(todo);
     setOpenUpdate(true);
   }
           
@@ -79,15 +80,13 @@ function ListTodos(){
                     <IconButton aria-label="Remove Todo">
                         <RemoveTodo todo={todo} />
                     </IconButton>
-                      
-                      
                     </ListItemSecondaryAction>
                   </ListItem>
                 </BoxLayout>
               ))}
             </List>
             <TransitionsModal todo={currentTodo} open={open} handleClose={handleClose}/>
-            <UpdateTodoDetails todo={currentTodo} open={openUpdate} handleClose={handleCloseUpdate}/>
+            <UpdateTodoDetails todo={currentTodoToUpdate} open={openUpdate} handleClose={handleCloseUpdate}/>
           </>
         );
 }

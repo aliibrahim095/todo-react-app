@@ -5,8 +5,8 @@ export const useForm = (callback, initialState = {}) => {
   const [values, setValues] = useState(initialState);
 
   const onChange = (event) => {
-    if(event.name==="dueDate"){
-      event.value = event.value.split('/').reverse().join('-');
+    if(event.target.name==="dueDate"){
+      event.target.value = event.target.value.split('/').reverse().join('-');
     }
     setValues((prevState) => ({
       ...prevState,

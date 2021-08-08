@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState ,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -28,29 +28,37 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UpdateTodoDetails({todo,handleClose,open}) {
   const classes = useStyles();
-  const initialState = {
-    title: todo.title,
-    description: todo.description,
-    dueDate: todo.dueDate,
-    state: todo.state,
-  };
+  const [initialState,setInitialState]=useState({
+        title:'',
+        description:'',
+        dueDate:'',
+        state:false
+  });
+  useEffect(() => {
+      if(open){
+        setInitialState(todo)
+      }
+}, [open])
 
-  const { onChange, onSubmit, toastMsg, values } = useForm(
-    updateTodoDetails,
-    initialState
+  const {onSubmit, toastMsg } = useForm(
+    updateTodoDetails, 
   );
 
   const [updateTodo] = useMutation(UPDATE_TODO_DETAILS,  {
     update(){
         setTimeout(()=>{
-          toastMsg("✅ Status Updated Successfully");
+          toastMsg("✅ Todo Updated Successfully");
       },1200)
+      console.log(initialState.state,"sstaaaaaate");
+      console.log(typeof initialState.state);
+      handleClose(true);
       },
-    variables:{
-        id:todo.id,
-        title:todo.title,
-        description:todo.description,
-        state:todo.state
+      variables:{
+        id:initialState.id,
+        title:initialState.title,
+        description:initialState.description,
+        dueDate:initialState.dueDate,
+        state:initialState.state==="false"?true:false
     },
     refetchQueries: [
         FETCH_TODOS_QUERY,
@@ -60,6 +68,17 @@ export default function UpdateTodoDetails({todo,handleClose,open}) {
   function updateTodoDetails() {
       updateTodo();
   }
+
+
+  const onChange = (event) => {
+    if(event.target.name==="dueDate"){
+      event.target.value = event.target.value.split('/').reverse().join('-');
+    }
+    setInitialState((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
+  };
 
 
   return (
@@ -78,10 +97,6 @@ export default function UpdateTodoDetails({todo,handleClose,open}) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            {/* <h2 id="transition-modal-title"> {todo.title}</h2>
-            <p id="transition-modal-description">{todo.description}</p>
-            <Checkbox checked={todo.state} tabIndex={-1} disableRipple/>
-            {todo.state?"Completed":"In Progress"} */}
             <form onSubmit={onSubmit} noValidate>
             <Grid container>
               <Grid item xs={11}>
@@ -97,12 +112,13 @@ export default function UpdateTodoDetails({todo,handleClose,open}) {
                       id="title"
                       label="Title"
                       margin="normal"
-                      value={values.title}
+                      value={initialState.title}
                       onChange={onChange}
                       name="title"
                       required
                     />
                   </Grid>
+                  <hr/>
                   <Grid item>
                   <TextField
                       id="description"
@@ -111,19 +127,20 @@ export default function UpdateTodoDetails({todo,handleClose,open}) {
                       minRows={1}
                       maxRows={4}
                       margin="normal"
-                      value={values.description}
+                      value={initialState.description}
                       onChange={onChange}
                       name="description"
                       required
                     />
                   </Grid>
+                  <hr/>
                   <Grid item>
                   <TextField
                       id="dueDate"
                       label="Due Date"
                       type="date"
                       margin="normal"
-                      value={values.dueDate}
+                      value={initialState.dueDate}
                       onChange={onChange}
                       name="dueDate"
                       InputLabelProps={{
@@ -132,6 +149,17 @@ export default function UpdateTodoDetails({todo,handleClose,open}) {
                       required
                     />
                   </Grid>
+                  <hr/>
+                  <Grid item>
+                  <Checkbox
+                        name="state"
+                        value={initialState.state}
+                        tabIndex={-1}
+                        disableRipple
+                        onChange={onChange}
+                        />
+                  </Grid>
+                  <hr/>
                   <Grid item>
                     <Button
                       variant="outlined"

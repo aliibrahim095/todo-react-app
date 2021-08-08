@@ -42,6 +42,7 @@ export default function TransitionsModal({todo,handleClose,open}) {
           <div className={classes.paper}>
             <h2 id="transition-modal-title"> {todo.title}</h2>
             <p id="transition-modal-description">{todo.description}</p>
+            <p id="transition-modal-description">{todo.dueDate}</p>
             <Checkbox checked={todo.state} tabIndex={-1} disableRipple/>
             {todo.state?"Completed":"In Progress"}
           </div>

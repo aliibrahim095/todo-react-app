@@ -12,6 +12,30 @@ export const FETCH_TODOS_QUERY = gql`
 }
 `;
 
+export const FETCH_COMPLETED_TODOS = gql`
+{
+  todos(where: {state: true}){
+    id
+    title
+    description
+    dueDate
+    state
+  }
+}
+`;
+export const FETCH_INPROGRESS_TODOS = gql`
+{
+  todos(where: {state: false}){
+    id
+    title
+    description
+    dueDate
+    state
+  }
+}
+`;
+
+
 export const ADD_TODO = gql`
   mutation createTodo($title: String!, $description: String!, $dueDate:Date!) {
     createTodo(data:{title: $title, description: $description, dueDate: $dueDate, state:false }) {
